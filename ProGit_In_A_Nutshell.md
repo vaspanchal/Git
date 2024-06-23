@@ -10,7 +10,7 @@
     - **Pros** : It is simple to use
     - **Cons** : high chances of errors, since the programmer can accidently write the code in wrong directory or may forget the directory
 - Simple Database based VCSs
-    - RCS (Revision COntrol System) is an early implemention of VCS
+    - RCS (Revision Control System) is an early implemention of VCS
 
     ![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCr_1wUDDCAsOFh9Dr56sGd5uZf6yq17IYoQ&s)
 
@@ -33,11 +33,11 @@
 - Developed to rectify the cons of CVSs
 - In this system, client mirrors the entire repository of project including its history along with its latest snapshot
 - upon mirroring, files gets distribute in clients, and thus having the backup of the project in multiple systems
-- Examples : Git, Mercurial, Darcs, etc.
+- Examples : Git, Mercurial, Darcs, etc.  
 ![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL_lKwEM4ePnokrLjTdo1l15ENhe6C7pS6Iw&s)
 
 # History of Git
-- Git was developed when Bitkeeper DVCS ended its paid services
+- Git was developed when Bitkeeper DVCS ended its free services
 - The linux community developed Git in 2005, having goals for the tool to be :
     - speed
     - simple design
@@ -56,7 +56,7 @@ It is hard to erase data in any way from git | you may lose the data more easily
 
 
 # Three Sections of A Git Project
-![]( Working tree, staging area, and Git directory)
+![](https://static.packt-cdn.com/products/9781782168454/graphics/8454OS_01_4.jpg)
 
 ## Working Tree :
 - contains files that are pulled from the local database in the git directory
@@ -89,6 +89,7 @@ Git has three main states in which a file can reside :
 ## CHECK VERSION OF GIT IN SHELL:
 ```
 git --version
+// OR
 git version
 ```
 
@@ -104,7 +105,10 @@ git config --global user.name "userName"
 git config --global user.email example@xyz.com
 ```
 - you need to do this only once provided you pass ```--global``` option, because on using this, git will always use that info for everything
-- If you want to override the information for specifcic projects, run the command without ```--global``` option in that project
+- If you want to override the information for specifcic projects, run the command without ```--global``` option in that project. i.e.,
+    ```
+    git config <!---command option->
+    ```
 
 ## Setup Your Text Editor
 - we can setup a default text editor that will be used when Git needs you to type a message
@@ -173,6 +177,21 @@ git add <files>
 git add LICENSE
 git commit -m "Initial project verison"
 ```
-- ```-m``` is for message(followed by it) while committing 
+- `git  add` puts the modified files into staging area, ready to commit
+- `-m` is for message(followed by it) while committing 
 
 ### 2. ***clone* an existing repo from internet** :
+To clone an existing repository from the internet, use command : `git clone <url>`
+```
+git clone https://github.com/libgit2/libgit2
+```
+- That creates a directory named libgit2, initializes a .git directory inside it.
+
+If you want to clone the repository into a directory named something  else, use command : `git clone <url> new_name`
+```
+git clone https://github.com/libgit2/libgit2 mylibgit
+```
+
+
+
+
