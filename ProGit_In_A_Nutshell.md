@@ -89,7 +89,7 @@ Git has three main states in which a file can reside :
 ## CHECK VERSION OF GIT IN SHELL:
 ```
 git --version
-// OR
+# OR
 git version
 ```
 
@@ -107,7 +107,7 @@ git config --global user.email example@xyz.com
 - you need to do this only once provided you pass ```--global``` option, because on using this, git will always use that info for everything
 - If you want to override the information for specifcic projects, run the command without ```--global``` option in that project. i.e.,
     ```
-    git config <!---command option->
+    git config <command option>
     ```
 
 ## Setup Your Text Editor
@@ -191,7 +191,139 @@ If you want to clone the repository into a directory named something  else, use 
 ```
 git clone https://github.com/libgit2/libgit2 mylibgit
 ```
+## Recording Changes to the Repository
+There are two states for a file in a working tree :
 
+**1. Tracked** : files that were in the last snapshot, as well as any newly staged files.
+- Unmodified files
+- modified files
+- staged files  
+    
+**2. Untracked** : Every file other than *tracked* in working tree.
+
+![](https:# git-scm.com/book/en/v2/images/lifecycle.png)
+
+- ### Checking the Status of Your Files
+    To determine which files are in which state, use `git status` command
+    ```
+    git status
+
+    #  returns something like this, if newly cloned repo:
+    On branch master 
+    Your branch is up-to-date with 'origin/master'. 
+    nothing to commit, working tree clean
+    ```
+    - It means there are no *untracked* or *modified* files in the directory  
+
+- ### Tracking/Staging Files (new/modifed)
+    use the command `git add` to begin tracking *untracked* or staging *modified* files
+    ```
+    git add <files>
+    ```
+- ### Short Status
+    While the `git status` output is pretty comprehensive, it’s also quite wordy. To get a more compact status, use `git status -s` command
+    ```
+     git status -s 
+    ```
+- ### Ignoring Files
+    File/s that you want git to **ignore** (git will not modify them or show them as untracked), Use `.gitignore ` command following file name
+    ```
+    <file/dir._name> .gitignore 
+        
+    #  returns 
+    *.[oa] 
+    *~
+    ```
+    - The first line tells Git to ignore any files ending in **“.o”** or **“.a”*** — *object* and *archive* files
+    - The second line tells Git to ignore all files whose names end with a tilde **(~)** : it means temporary files in text editors like *emacs*
+
+    **The rules for the patterns you can put in the .gitignore file:**
+     - Blank lines or lines starting with #
+     - Standard glob patterns work, and will be applied recursively throughout the entire working tree. 
+     - You can start patterns with a forward slash (/) to avoid recursivity. 
+     - You can end patterns with a forward slash (/) to specify a directory. 
+     - You can negate a pattern by starting it with an exclamation point (!).    
+
+
+- ### Viewing Your Staged and Unstaged Changes  
+
+    - To see what you’ve changed but not yet staged, type `git diff` 
+
+        ```
+        git diff 
+        ```
+    - To see what you’ve staged for next commit, use `git diff --staged`
+        ```
+        git diff --staged
+        #  OR
+       git diff --cached
+        ```
+- ### Committing Your Changes
+    ```
+    git commit
+    #  OR 
+    git commit -m "<message>"
+    ```
+
+- ### Skipping the Staging Area
+    Adding `-a` option to `git commit` command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip the ` git add` part
+    ```
+    git commit -a -m "<message>"
+    ```
+
+- ### Removing Files
+    To remove a file from Git, use ` git rm <filename>`
+    ```
+    git status
+    #  checks the current status of tracked files before removing a file
+
+     git rm EXAMPLE.md
+    #  removes EXAMPLE.md from tracked files
+    ```
+- ### Moving Files  
+    - Git doesn’t explicitly track file movement  
+
+    -  If you rename a file in Git, no metadata is stored in Git that tells it you renamed the file.  
+
+
+    If you want to rename a file in Git, use:
+    ```
+    git mv file_from file_to
+    ```
+    - `mv` is move command for renaming files in git
+    - `file_from` : current file name
+    - `file_to` : new file name
+
+## Viewing the Commit History
+To see the entire commit history, use `git log` command
+```
+git log
+#  returns entire commit history
+```
+## Undoing Things
+- ### Undoing commit
+    ```
+    git commit --amend
+    ```
+    One of the common undos takes place when you commit too early and possibly forget to add some files, or you mess up your commit message
+- ### Unstaging a Staged File
+    ```
+    git reset <filename>
+    # git doesn't use it anymore
+    ```
+    ```
+    git restore --staged <filename>
+    # Introduced in Git version 2.23.0 
+    ```
+- ### Unmodifying a Modified File
+    Undoing the changes made in a file  
+
+    ```
+    git checkout -- <filename>
+    ```
+    ```
+    git restore <file>
+    ```
 
 
 
